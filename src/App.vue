@@ -19,16 +19,6 @@ export default {
       now: new Date(),
     };
   },
-  methods: {
-    updateDate() {
-      this.now = new Date();
-    },
-  },
-  mounted() {
-    setInterval(() => {
-      this.updateDate();
-    }, 1000);
-  },
 };
 </script>
 

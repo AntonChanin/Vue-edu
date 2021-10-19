@@ -41,10 +41,25 @@
         </div>
       </template>
     </MyCard>
+    <h1 class="comments-title">Comments</h1>
+    <div class="comments">
+      <div v-for="comment in comments" :key="comment.id">
+        <MyCard>
+          <template #content>
+            <span>
+              {{ comment.name }} email
+              <b>{{ comment.email }}</b>
+            </span>
+            <p>{{ comment.body }}</p>
+          </template>
+        </MyCard>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import { mapActions, mapState } from "vuex";
 import MyCard from "../components/MyCard.vue";
 
 export default {
@@ -86,6 +101,16 @@ export default {
       },
     };
   },
+  computed: {
+    ...mapState("comments", ["comments"]),
+  },
+  methods: {
+    ...mapActions("comments", ["featchComments"]),
+  },
+
+  async mounted() {
+    await this.featchComments();
+  },
 };
 </script>
 
@@ -117,7 +142,7 @@ export default {
 }
 
 .contaner :first-child[class^="card"] {
-  background-color: rgba(95, 158, 160, 0.5);
+  background-color: rgba(0, 247, 255, 0.5);
 }
 
 .contaner {
@@ -133,6 +158,14 @@ export default {
 .content img {
   width: 50%;
   background-color: rgba(95, 158, 160, 0.5);
+}
+.comments {
+  padding: 10px;
+  margin: 10px;
+  box-shadow: 0px 0px 4px 0px rgba(34, 60, 80, 0.2);
+}
+.comments-title {
+  margin-left: 10px;
 }
 
 .desc {
